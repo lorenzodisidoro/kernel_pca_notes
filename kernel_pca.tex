@@ -79,13 +79,48 @@ C_{map}v = \lambda v \Rightarrow (\dfrac{1}{n}\sum_{i = 1}^{n} \Phi(x^{(i)})\Phi
 \Rightarrow v = \dfrac{1}{n}\sum_{i = 1}^{n} \Phi(x^{(i)})a^{(i)} = \Phi(X)^Ta
 \end{equation*}
 
-\begin{equation*}
-Where: Ka = \lambda a
-\end{equation*}
-
 Then
 \begin{equation*}
-C_{map}v = \lambda v \Rightarrow (\dfrac{1}{n}\Phi(X)\Phi(X)^T)(\Phi(X)^Ta) = \lambda(\Phi(X)^Ta)
+C_{map}v = \lambda v \Rightarrow (\dfrac{1}{n}\Phi(X)\Phi(X)^T)(\Phi(X)^Ta) = \lambda(\Phi(X)^Ta) 
 \end{equation*}
+
+\begin{equation*}
+\Rightarrow \dfrac{1}{n}\Phi(X)\Phi(X)^Ta = \lambda a \Rightarrow \dfrac{1}{n}Ka = \lambda a
+\end{equation*}
+
+Where K is the kernel matrix \( \) $ K = \Phi(X)\Phi(X)^T $ and the kernel function \( \) $ k(x^{(i)}, x^{(j)}) = \Phi(x^{(j)})\Phi(x^{(i)})^T $.
+
+
+
+There are several kernel functions that can be used, \href{https://www.sciencedirect.com/topics/computer-science/kernel-function}{here} can be found a deep understanding about this topic, but in this case will be used the Gaussian form of the kernel function defined as follow
+
+\begin{equation*}
+k(x^{(i)}, x^{(j)}) = e^{(-\dfrac{||x^{(i)} - x^{(j)}||^2}{2\sigma})}
+\end{equation*}
+
+Where \( \) $ ||x^{(i)} - x^{(j)}|| $ is the squared Euclidean distance between the two feature vectors and \( \) $ \sigma $ is a free parameter, setting the \( \) $ \gamma = \dfrac{1}{2\sigma^2} $ the function can also be written as
+
+\begin{equation*}
+k(x^{(i)}, x^{(j)}) = e^{(-\gamma{||x^{(i)} - x^{(j)}||^2})}
+\end{equation*}
+
+Since the value of the RBF kernel decreases with distance and ranges between zero and one, when \( \) $ x^{(i)} = x^{(j)}$, source wikipedia.org. The K matrix will be defined as follows
+
+\begin{equation*}
+K_{(n,n)} = 
+\begin{pmatrix}
+k({x^{(1)}, x^{(1)}}) & k({x^{(1)}, x^{(2)}}) & \cdots & k({x^{(1)}, x^{(n)}}) \\
+k({x^{(2)}, x^{(1)}}) & k({x^{(2)}, x^{(2)}}) & \cdots & k({x^{(2)}, x^{(n)}}) \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+k({x^{(n)}, x^{(1)}}) & k({x^{(n)}, x^{(2)}}) & \cdots & k({x^{(n)}, x^{(n)}})
+\end{pmatrix}
+\end{equation*}
+
+Before selecting the eigenvectors of K the kernel matrix should be centered
+\begin{equation*}
+K' = K - 1_n K - K1_n + 1_nK1_n
+\end{equation*}
+
+Where the matrix \( \) $ 1_n $ is an \( \) $ n x n $ matrix with all values equal to \( \) $ \dfrac{1}{n} $.
 
 \end{document}
